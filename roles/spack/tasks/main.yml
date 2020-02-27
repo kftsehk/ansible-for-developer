@@ -1,0 +1,13 @@
+- name: Installing Prerequisite
+  yum:
+    name:
+      - patch
+      - gcc
+      - gcc-c++
+      - gcc-gfortran
+
+- name: Cloning From Github
+  git:
+    dest: "{{ spack_prefix }}"
+    repo: https://github.com/spack/spack.git
+    version: master

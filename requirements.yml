@@ -1,0 +1,8 @@
+# https://galaxy.ansible.com/andrewrothstein/anaconda
+- src: andrewrothstein.anaconda
+# https://galaxy.ansible.com/geerlingguy
+- src: geerlingguy.docker
+- src: geerlingguy.nfs
+- src: geerlingguy.ntp
+- src: geerlingguy.security
+- src: nvidia.nvidia_driver

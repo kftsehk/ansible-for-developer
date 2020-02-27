@@ -1,0 +1,7 @@
+- name: Development Packages - Yum
+  yum:
+    name:
+      - tmux
+      - xorg-x11-apps
+      - xorg-x11-server-Xorg
+      - xorg-x11-xauth

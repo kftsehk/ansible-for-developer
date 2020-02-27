@@ -1,0 +1,43 @@
+- name: Persistently Disabling SELinux
+  lineinfile:
+    backrefs: true
+    line: "SELINUX=disabled"
+    path: /etc/selinux/config
+    regexp: '^\s*SELINUX\s*=.*$'
+    state: present
+  when: ansible_facts['selinux']['status'] != "disabled"
+
+- name: Installing YUM Plugins
+  yum: 
+    name:
+      - yum-plugin-fastestmirror
+      - yum-metadata-parser
+      - yum-utils
+
+- name: Disabling YUM Fastestmirror
+  lineinfile:
+    backrefs: true
+    line: "enabled=0"
+    path: /etc/yum/pluginconf.d/fastestmirror.conf
+    regexp: '\s*enabled\s*=.*$'
+    state: present
+
+- name: Upgrading All Packages, Excluding Kernel
+  yum:
+    name: '*'
+    state: latest
+    exclude: kernel*
+  when: yum_baseline_upgrade == true
+
+- name: Installing epel-release
+  yum:
+    name: epel-release
+
+- name: Installing ELRepo GPG Key
+  rpm_key:
+    key: https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+    fingerprint: 96C0 104F 6315 4731 1E0B B1AE 309B C305 BAAD AE52
+
+- name: Installing ELRepo
+  yum:
+    name: '{{ elrepo }}'

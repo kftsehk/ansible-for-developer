@@ -1,0 +1,5 @@
+- name: System management
+  yum:
+    name:
+      - ipmitool
+      - pdsh

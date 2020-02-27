@@ -1,0 +1,65 @@
+---
+- name: Main play
+  hosts: localhost
+  connection: local
+  become: yes
+  become_method: sudo
+  roles:
+    - base
+    # - role: andrewrothstein.anaconda
+    #   vars:
+    #     anaconda_install_channels: "defaults conda-forge"
+    #     anaconda_install_packages:
+    #       - ipython
+    #       - jupyter
+    #       - matplotlib
+    #       - numpy
+    #       - pandas
+    #       - scipy
+    #     ys_default: true
+    #     anaconda_parent_dir: /opt
+    # - geerlingguy.docker
+    # - development-packages
+    # - runtime-packages
+    # - system-management
+    # - spack
+    - role: geerlingguy.ntp
+      vars:
+        - ntp_area: hk
+        - ntp_manage_config: true
+        - ntp_servers:
+          - "stdtime.gov.hk iburst"
+          - "0{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org iburst"
+          - "1{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org iburst"
+          - "2{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org iburst"
+          - "3{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org iburst"
+        - ntp_timezone: Asia/Hong_Kong
+    - role: geerlingguy.nfs
+      vars:
+        nfs_exports: 
+          - "/opt *(rw,root_squash,async)"
+          - "/home *(rw,root_squash,async)"
+    - role: geerlingguy.security
+      vars:
+        security_autoupdate_enabled: false
+        security_fail2ban_enabled: true
+        security_ssh_challenge_response_auth: "no"
+        security_ssh_gss_api_authentication: "no"
+        security_ssh_password_authentication: "no"
+        security_ssh_permit_empty_password: "no"
+        security_ssh_permit_root_login: "no"
+        security_ssh_restart_handler_state: restarted
+        security_ssh_usedns: "no"
+        security_ssh_x11_forwarding: "yes"
+        security_sudoers_passwordless:
+          - kftse
+  tasks:
+    - name: Configurating Mount Points
+      mount:
+        fstype: nfs
+        path: "/{{ item }}2"
+        src: localhost:/{{ item }}
+        state: mounted
+      with_items:
+        - opt
+        - home
