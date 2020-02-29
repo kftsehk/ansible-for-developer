@@ -1,3 +1,20 @@
+- name: install development tools
+  yum:
+    name:
+      - "@Development tools"
+      - cvs
+      - cmake
+      - cmake3
+      - expect
+      - gcc-c++
+      - gcc-gfortran
+      - git
+      - gnuplot
+      - grace
+      - ImageMagick
+      - mercurial
+    update_cache: true
+
 - name: install Intel GPG key
   rpm_key:
     key: https://yum.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB
@@ -7,22 +24,8 @@
     cmd: "yum-config-manager --add-repo https://yum.repos.intel.com/setup/intelproducts.repo"
     creates: /etc/yum.repos.d/intelproducts.repo
 
-- name: install development tools
-  yum:
-    name:
-      - "@Development tools"
-      - cvs
-      - cmake
-      - cmake3
-      - expect
-      - gcc-g++
-      - gcc-gfortran
-      - git
-      - gnuplot
-      - grace
-      - ImageMagick
-      - mercurial
-    update_cache: true
+- name: accept repo gpg key
+  command: yum makecache -y
 
 - name: install Intel(R) Data Analytics Acceleration Library
   yum:
