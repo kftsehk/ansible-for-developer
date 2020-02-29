@@ -6,6 +6,9 @@
   become_method: sudo
   roles:
     - base
+    - role: nvidia.nvidia_driver
+      vars:
+        nvidia_driver_skip_reboot: true 
     - role: andrewrothstein.anaconda
       vars:
         anaconda_install_channels: "defaults conda-forge"
