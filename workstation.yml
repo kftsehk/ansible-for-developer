@@ -18,12 +18,10 @@
           - matplotlib
           - numpy
           - pandas
+          - pylint
           - scipy
         ys_default: true
         anaconda_parent_dir: /opt
-    - spack
-    - geerlingguy.docker
-    - runtime-packages
     - role: geerlingguy.nodejs
       vars: 
         nodejs_version: "12.x"
@@ -33,7 +31,6 @@
           - gatsby-cli
           - create-react-app
           - serve
-    - development-packages
     - role: geerlingguy.git
       vars:
         git_install_from_source: true
@@ -73,4 +70,4 @@
         security_ssh_x11_forwarding: "yes"
         security_sudoers_passwordless:
           - kftse
-    - system-management
+    - misc
