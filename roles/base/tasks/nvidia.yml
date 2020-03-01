@@ -3,17 +3,13 @@
     name: nvidia-detect
     update_cache: true
 
-- name: run nvidia-detect (non-zero rc not error)
+- name: run nvidia-detect
   command: 
     cmd: nvidia-detect
-  ignore_errors: true
   register: nvidia_modules
+  failed_when: nvidia_modules.rc == 0 or nvidia_modules.rc >= 6
+  changed_when: false
 
 - name: install nvidia driver
   yum:
     name: "{{ nvidia_modules.stdout_lines }}"
-
-- name: remove nvidia-detect
-  yum:
-    name: nvidia-detect
-    state: absent
