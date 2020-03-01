@@ -9,4 +9,3 @@
 - src: https://github.com/ngetchell/vscode
   version: master
   name: ngetchell.vscode
-- src: nvidia.nvidia_driver

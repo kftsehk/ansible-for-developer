@@ -37,7 +37,7 @@
     exclude: kernel*
     update_cache: true
   when: yum_baseline_upgrade == true
-  
+
 
 - name: Installing epel-release
   yum:
@@ -51,3 +51,6 @@
 - name: Installing ELRepo
   yum:
     name: '{{ elrepo }}'
+
+- name: install nvidia
+  import_tasks: nvidia.yml
