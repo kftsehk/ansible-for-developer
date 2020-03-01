@@ -3,6 +3,8 @@
 # https://galaxy.ansible.com/geerlingguy
 - src: geerlingguy.docker
 - src: geerlingguy.nfs
+- src: geerlingguy.nodejs
 - src: geerlingguy.ntp
 - src: geerlingguy.security
+- src: ngetchell.vscode
 - src: nvidia.nvidia_driver

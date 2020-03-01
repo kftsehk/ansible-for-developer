@@ -5,10 +5,11 @@
   become: yes
   become_method: sudo
   roles:
-    - base
-    - role: nvidia.nvidia_driver
+    - role: base
       vars:
-        nvidia_driver_skip_reboot: true 
+        yum_baseline_upgrade: true
+        yum_kernel_upgrade: true
+    - nvidia.nvidia_driver
     - role: andrewrothstein.anaconda
       vars:
         anaconda_install_channels: "defaults conda-forge"
@@ -21,11 +22,27 @@
           - scipy
         ys_default: true
         anaconda_parent_dir: /opt
-    - geerlingguy.docker
-    - development-packages
-    - runtime-packages
-    - system-management
     - spack
+    - geerlingguy.docker
+    - runtime-packages
+    - role: geerlingguy.nodejs
+      vars: 
+        nodejs_version: "12.x"
+        nodejs_npm_global_packages: 
+          - "@aws-amplify/cli"
+          - firebase-tools
+          - gatsby-cli
+          - create-react-app
+          - serve
+    - development-packages
+    - role: ngetchell.vscode
+      vars: 
+        vscode_extension:
+          - aaron-bond.better-comments
+          - eamodio.gitlens
+          - esbenp.prettier-vscode
+          - ms-vscode-remote.remote-ssh
+          - ms-vscode-remote.remote-ssh-edit
     - role: geerlingguy.ntp
       vars:
         - ntp_area: hk
@@ -51,3 +68,4 @@
         security_ssh_x11_forwarding: "yes"
         security_sudoers_passwordless:
           - kftse
+    - system-management

@@ -13,6 +13,7 @@
       - yum-plugin-fastestmirror
       - yum-metadata-parser
       - yum-utils
+    update_cache: true
 
 - name: Disabling YUM Fastestmirror
   lineinfile:
@@ -22,12 +23,21 @@
     regexp: '\s*enabled\s*=.*$'
     state: present
 
+- name: Upgrading Kernel
+  yum:
+    name: 'kernel*'
+    state: latest
+    update_cache: true
+  when: yum_kernel_upgrade == true
+
 - name: Upgrading All Packages, Excluding Kernel
   yum:
     name: '*'
     state: latest
     exclude: kernel*
+    update_cache: true
   when: yum_baseline_upgrade == true
+  
 
 - name: Installing epel-release
   yum:
