@@ -6,5 +6,7 @@
 - src: geerlingguy.nodejs
 - src: geerlingguy.ntp
 - src: geerlingguy.security
-- src: ngetchell.vscode
+- src: https://github.com/ngetchell/vscode
+  version: master
+  name: ngetchell.vscode
 - src: nvidia.nvidia_driver
