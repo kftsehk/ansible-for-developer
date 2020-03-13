@@ -1,3 +1,8 @@
+cuda_repo: http://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-rhel7.repo
+# 0 or 1, if 1 require sudo to profile gpu application
+cuda_restrict_profiling_to_admin_users: 0
+cuda_version: 10-2
 elrepo: https://www.elrepo.org/elrepo-release-7.0-4.el7.elrepo.noarch.rpm
+nvidia_persistenced_user: nvpersistenced
 yum_baseline_upgrade: false
 yum_kernel_upgrade: false
