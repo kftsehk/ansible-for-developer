@@ -9,6 +9,7 @@
       vars:
         yum_baseline_upgrade: true
         yum_kernel_upgrade: true
+    - role: nvidia-cuda
     - role: andrewrothstein.anaconda
       vars:
         anaconda_install_channels: "defaults conda-forge"
@@ -23,9 +24,9 @@
         ys_default: true
         anaconda_parent_dir: /opt
     - role: geerlingguy.nodejs
-      vars: 
+      vars:
         nodejs_version: "12.x"
-        nodejs_npm_global_packages: 
+        nodejs_npm_global_packages:
           - "@aws-amplify/cli"
           - firebase-tools
           - gatsby-cli
@@ -38,7 +39,7 @@
         git_install_path: "/usr/local"
         git_version: "2.25.1"
     - role: ngetchell.vscode
-      vars: 
+      vars:
         vscode_extension:
           - aaron-bond.better-comments
           - eamodio.gitlens

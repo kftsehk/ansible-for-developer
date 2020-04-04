@@ -4,7 +4,7 @@
     update_cache: true
 
 - name: run nvidia-detect
-  command: 
+  command:
     cmd: nvidia-detect
   register: nvidia_modules
   failed_when: nvidia_modules.rc == 0 or nvidia_modules.rc >= 6
@@ -15,7 +15,7 @@
     name: "{{ nvidia_modules.stdout_lines }}"
 
 - name: install cuda repos
-  shell: 
+  shell:
     cmd: "yum-config-manager --add-repo {{ cuda_repo }}"
     creates: /etc/yum.repos.d/cuda-rhel7.repo
 

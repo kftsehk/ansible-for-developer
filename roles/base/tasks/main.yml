@@ -8,7 +8,7 @@
   when: ansible_facts['selinux']['status'] != "disabled"
 
 - name: Installing YUM Plugins
-  yum: 
+  yum:
     name:
       - yum-plugin-fastestmirror
       - yum-metadata-parser
@@ -25,19 +25,18 @@
 
 - name: Upgrading Kernel
   yum:
-    name: 'kernel*'
+    name: "kernel*"
     state: latest
     update_cache: true
   when: yum_kernel_upgrade == true
 
 - name: Upgrading All Packages, Excluding Kernel
   yum:
-    name: '*'
+    name: "*"
     state: latest
     exclude: kernel*
     update_cache: true
   when: yum_baseline_upgrade == true
-
 
 - name: Installing epel-release
   yum:
@@ -50,7 +49,4 @@
 
 - name: Installing ELRepo
   yum:
-    name: '{{ elrepo }}'
-
-- name: install nvidia
-  import_tasks: nvidia.yml
+    name: "{{ elrepo }}"
