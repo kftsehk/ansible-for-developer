@@ -15,44 +15,7 @@
       - mercurial
     update_cache: true
 
-- name: install Intel GPG key
-  rpm_key:
-    key: https://yum.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB
-
-- name: install Intel Runtime repos
-  shell: 
-    cmd: "yum-config-manager --add-repo https://yum.repos.intel.com/setup/intelproducts.repo"
-    creates: /etc/yum.repos.d/intelproducts.repo
-
-- name: accept repo gpg key
-  command: yum makecache -y
-
-- name: install Intel(R) Data Analytics Acceleration Library
-  yum:
-    name: 
-      - intel-daal-2018.3-051
-
-- name: install Intel(R) Integrated Performance Primitives
-  yum:
-    name: 
-      - intel-ipp-2018.4-057
-
-- name: install Intel(R) MPI Library
-  yum:
-    name: 
-      - intel-mpi-2018.4-057
-
-- name: install Intel(R) Math Kernel Library
-  yum:
-    name: 
-      - intel-mkl-2018.4-057
-
-- name: install Intel(R) Threading Building Blocks
-  yum:
-    name: 
-      - intel-tbb-2018.6-057
-
 - name: install openjdk
   yum:
-    name: 
+    name:
       - java-latest-openjdk

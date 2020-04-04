@@ -1,0 +1,21 @@
+install_runtime: true
+runtime_intel_repo: https://yum.repos.intel.com/setup/intelproducts.repo
+runtime_intel_gpg_key: https://yum.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB
+# Set these to "" to skip individual package
+runtime_daal_ver: "2018.3-051"
+runtime_ipp_ver: "2018.4-057"
+runtime_mpi_ver: "2018.4-057"
+runtime_mkl_ver: "2018.4-057"
+runtime_tbb_ver: "2018.6-057"
+
+install_psxe: false
+psxe_download_url: http://registrationcenter-download.intel.com/akdlm/irc_nas/tec/16526/parallel_studio_xe_2020_update1_cluster_edition.tgz
+psxe_temp_root: /tmp
+# exist_lic, license_server, license_file, serial_number
+psxe_activation_type: exist_lic
+# ACTIVATION_LICENSE_FILE=filepat, lspat
+# ACTIVATION_SERIAL_NUMBER=snpat
+psxe_activation_config:
+psxe_amplifier_driver_permissions: 666
+psxe_amplifier_driver_per_user_mode: "yes"
+psxe_arch: INTEL64

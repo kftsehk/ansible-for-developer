@@ -1,0 +1,10 @@
+- local_action: stat path=/opt/intel
+  register: psxe_install_path
+
+- name: install intel psxe runtime
+  import_tasks: runtime.yml
+  when: install_runtime and not psxe_install_path.stat.exists
+
+- name: install intel psxe
+  import_tasks: psxe.yml
+  when: install_psxe and not psxe_install_path.stat.exists

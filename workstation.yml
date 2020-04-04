@@ -10,6 +10,12 @@
         yum_baseline_upgrade: true
         yum_kernel_upgrade: true
     - role: nvidia-cuda
+    - role: intel-psxe
+      vars:
+        - install_runtime: false
+        - install_psxe: true
+        - psxe_activation_type: serial_number
+        - psxe_activation_config: ACTIVATION_SERIAL_NUMBER=
     - role: andrewrothstein.anaconda
       vars:
         anaconda_install_channels: "defaults conda-forge"
