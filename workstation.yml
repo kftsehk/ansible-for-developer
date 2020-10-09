@@ -10,48 +10,51 @@
         yum_baseline_upgrade: true
         yum_kernel_upgrade: true
     - role: nvidia-cuda
-    - role: intel-psxe
-      vars:
-        - install_runtime: false
-        - install_psxe: true
-        - psxe_activation_type: serial_number
-        - psxe_activation_config: ACTIVATION_SERIAL_NUMBER=
     - role: andrewrothstein.anaconda
       vars:
         anaconda_install_channels: "defaults conda-forge"
         anaconda_install_packages:
+          - autopep8
+          - awscli
+          - aws-sam-cli
+          - ffmpeg
+          - gstreamer
           - ipython
           - jupyter
           - matplotlib
           - numpy
           - pandas
           - pylint
+          - yq
           - scipy
         ys_default: true
         anaconda_parent_dir: /opt
+    - role: geerlingguy.docker
     - role: geerlingguy.nodejs
       vars:
         nodejs_version: "12.x"
         nodejs_npm_global_packages:
-          - "@aws-amplify/cli"
+          - create-react-app
+          - eslint
           - firebase-tools
           - gatsby-cli
-          - create-react-app
           - serve
     - role: geerlingguy.git
       vars:
         git_install_from_source: true
         git_install_from_source_force_update: true
-        git_install_path: "/usr/local"
-        git_version: "2.25.1"
+        git_install_path: /usr/local
+        git_version: 2.27.0
     - role: ngetchell.vscode
       vars:
         vscode_extension:
           - aaron-bond.better-comments
           - eamodio.gitlens
           - esbenp.prettier-vscode
+          - graphql.vscode-graphql
           - ms-vscode-remote.remote-ssh
           - ms-vscode-remote.remote-ssh-edit
+          - ms-python.python
     - role: geerlingguy.ntp
       vars:
         - ntp_area: hk
@@ -77,4 +80,5 @@
         security_ssh_x11_forwarding: "yes"
         security_sudoers_passwordless:
           - kftse
+    - runtime-packages
     - misc
