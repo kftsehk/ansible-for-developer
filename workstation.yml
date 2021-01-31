@@ -7,9 +7,9 @@
   roles:
     - role: base
       vars:
-        yum_baseline_upgrade: true
-        yum_kernel_upgrade: true
-    - role: nvidia-cuda
+        elrepo: https://www.elrepo.org/elrepo-release-8.el8.elrepo.noarch.rpm
+    - role: geerlingguy.docker
+    - role: nvidia.nvidia_docker
     - role: andrewrothstein.anaconda
       vars:
         anaconda_install_channels: "defaults conda-forge"
@@ -17,19 +17,24 @@
           - autopep8
           - awscli
           - aws-sam-cli
+          - black
           - ffmpeg
+          - glances
           - gstreamer
+          - gst-plugins-base
+          - gst-plugins-good
           - ipython
           - jupyter
+          - luigi
           - matplotlib
           - numpy
           - pandas
           - pylint
+          - ranger-fm
           - yq
           - scipy
         ys_default: true
         anaconda_parent_dir: /opt
-    - role: geerlingguy.docker
     - role: geerlingguy.nodejs
       vars:
         nodejs_version: "12.x"
@@ -39,12 +44,6 @@
           - firebase-tools
           - gatsby-cli
           - serve
-    - role: geerlingguy.git
-      vars:
-        git_install_from_source: true
-        git_install_from_source_force_update: true
-        git_install_path: /usr/local
-        git_version: 2.27.0
     - role: ngetchell.vscode
       vars:
         vscode_extension:
@@ -69,7 +68,7 @@
     - role: geerlingguy.security
       vars:
         security_autoupdate_enabled: false
-        security_fail2ban_enabled: true
+        security_fail2ban_enabled: false
         security_ssh_challenge_response_auth: "no"
         security_ssh_gss_api_authentication: "no"
         security_ssh_password_authentication: "yes"
@@ -80,5 +79,25 @@
         security_ssh_x11_forwarding: "yes"
         security_sudoers_passwordless:
           - kftse
-    - runtime-packages
-    - misc
+    - role: intel-psxe
+      vars:
+        install_runtime: false
+        install_psxe: true
+        psxe_download_url: https://registrationcenter-download.intel.com/akdlm/irc_nas/tec/17113/parallel_studio_xe_2020_update4_cluster_edition.tgz
+        psxe_temp_root: /tmp
+        # exist_lic, license_server, license_file, serial_number
+        psxe_activation_type: serial_number
+        # ACTIVATION_LICENSE_FILE=filepat, lspat
+        # ACTIVATION_SERIAL_NUMBER=snpat
+        psxe_activation_config: ACTIVATION_SERIAL_NUMBER=
+    - role: google-chrome
+  tasks:
+  - name: misc packages
+    yum:
+      name:
+        - GraphicsMagick
+        - htop
+        - snapd
+        - sox
+        - tmux
+      state: latest

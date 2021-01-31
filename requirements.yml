@@ -1,12 +1,9 @@
-# https://galaxy.ansible.com/andrewrothstein/anaconda
 - src: andrewrothstein.anaconda
-# https://galaxy.ansible.com/geerlingguy
 - src: geerlingguy.docker
-- src: geerlingguy.git
-- src: geerlingguy.nfs
 - src: geerlingguy.nodejs
 - src: geerlingguy.ntp
 - src: geerlingguy.security
 - src: https://github.com/ngetchell/vscode
   version: master
   name: ngetchell.vscode
+- src: nvidia.nvidia_docker

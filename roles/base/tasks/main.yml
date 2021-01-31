@@ -7,22 +7,6 @@
     state: present
   when: ansible_facts['selinux']['status'] != "disabled"
 
-- name: Installing YUM Plugins
-  yum:
-    name:
-      - yum-plugin-fastestmirror
-      - yum-metadata-parser
-      - yum-utils
-    update_cache: true
-
-- name: Disabling YUM Fastestmirror
-  lineinfile:
-    backrefs: true
-    line: "enabled=0"
-    path: /etc/yum/pluginconf.d/fastestmirror.conf
-    regexp: '\s*enabled\s*=.*$'
-    state: present
-
 - name: Upgrading Kernel
   yum:
     name: "kernel*"
@@ -38,9 +22,9 @@
     update_cache: true
   when: yum_baseline_upgrade == true
 
-- name: Installing epel-release
-  yum:
-    name: epel-release
+# - name: Installing epel-release
+#   yum:
+#     name: epel-release
 
 - name: Installing ELRepo GPG Key
   rpm_key:
