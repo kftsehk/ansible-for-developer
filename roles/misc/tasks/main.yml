@@ -2,7 +2,9 @@
   yum:
     name:
       - audacity
+      - ffmpeg
+      - python3
+      - https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
       - htop
       - sox
       - tmux
-      - https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
