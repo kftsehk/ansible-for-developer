@@ -26,3 +26,6 @@
 - name: Installing ELRepo
   yum:
     name: "{{ elrepo }}"
+- name: Installing CentOS SCL
+  yum:
+    name: centos-release-scl
