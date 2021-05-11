@@ -1,59 +1,61 @@
----
-- name: Set up local workstation
-  hosts: localhost
-  connection: local
-  become: yes
+- become: true
   become_method: sudo
+  connection: local
+  hosts: localhost
+  name: Set up local workstation for hpc
   roles:
     - role: base
       vars:
-        elrepo: https://www.elrepo.org/elrepo-release-8.el8.elrepo.noarch.rpm
-    - role: geerlingguy.docker
-    - role: nvidia.nvidia_docker
-    - role: andrewrothstein.anaconda
+        elrepo: https://www.elrepo.org/elrepo-release-7.el7.elrepo.noarch.rpm
+        yum_baseline_upgrade: true
+        yum_kernel_upgrade: true
+    - role: nvidia.nvidia_driver
       vars:
-        anaconda_install_channels: "defaults conda-forge"
-        anaconda_install_packages:
-          - autopep8
-          - awscli
-          - aws-sam-cli
-          - black
-          - ffmpeg
-          - glances
-          - gstreamer
-          - gst-plugins-base
-          - gst-plugins-good
-          - ipython
-          - jupyter
-          - luigi
-          - matplotlib
-          - numpy
-          - pandas
-          - pylint
-          - ranger-fm
-          - yq
-          - scipy
-        ys_default: true
-        anaconda_parent_dir: /opt
-    - role: geerlingguy.nodejs
+        nvidia_driver_skip_reboot: "yes"
+    - role: google-chrome
+    - role: geerlingguy.git
       vars:
-        nodejs_version: "12.x"
-        nodejs_npm_global_packages:
-          - create-react-app
-          - eslint
-          - firebase-tools
-          - gatsby-cli
-          - serve
+        git_install_from_source: true
+        git_install_from_source_force_update: true
+        git_install_path: "/usr/local"
+        git_version: "2.25.1"
     - role: ngetchell.vscode
       vars:
         vscode_extension:
           - aaron-bond.better-comments
           - eamodio.gitlens
           - esbenp.prettier-vscode
-          - graphql.vscode-graphql
+          - ms-python.python
+          - ms-python.vscode-pylance
           - ms-vscode-remote.remote-ssh
           - ms-vscode-remote.remote-ssh-edit
-          - ms-python.python
+          - yzhang.markdown-all-in-one
+    - role: andrewrothstein.anaconda
+      vars:
+        anaconda_install_channels: "defaults conda-forge"
+        anaconda_install_packages:
+          - autoflake
+          - autopep8
+          - awscli
+          - aws-sam-cli
+          - black
+          - glances
+          - ipython
+          - isort
+          - jupyter
+          - pylint
+          - ranger-fm
+          - yq
+        anaconda_parent_dir: /opt
+        ys_default: true
+    - role: geerlingguy.nodejs
+      vars:
+        nodejs_npm_global_packages:
+          - create-react-app
+          - eslint
+        nodejs_version: "14.x"
+    - role: geerlingguy.docker
+    - role: nvidia.nvidia_docker
     - role: geerlingguy.ntp
       vars:
         - ntp_area: hk
@@ -77,27 +79,15 @@
         security_ssh_restart_handler_state: restarted
         security_ssh_usedns: "no"
         security_ssh_x11_forwarding: "yes"
-        security_sudoers_passwordless:
-          - kftse
     - role: intel-psxe
       vars:
-        install_runtime: false
         install_psxe: true
+        install_runtime: false
+        psxe_activation_config: ACTIVATION_SERIAL_NUMBER=
+        psxe_activation_type: serial_number
         psxe_download_url: https://registrationcenter-download.intel.com/akdlm/irc_nas/tec/17113/parallel_studio_xe_2020_update4_cluster_edition.tgz
         psxe_temp_root: /tmp
-        # exist_lic, license_server, license_file, serial_number
-        psxe_activation_type: serial_number
-        # ACTIVATION_LICENSE_FILE=filepat, lspat
-        # ACTIVATION_SERIAL_NUMBER=snpat
-        psxe_activation_config: ACTIVATION_SERIAL_NUMBER=
-    - role: google-chrome
   tasks:
-    - name: google chrome
-      yum:
-        name:
-          - https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
-        disable_gpg_check: true
-        state: latest
     - name: misc packages
       yum:
         name:
