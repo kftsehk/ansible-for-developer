@@ -5,9 +5,8 @@
       - gcc
       - gcc-c++
       - gcc-gfortran
-
-- name: Cloning From Github
-  git:
+- git:
     dest: "{{ spack_prefix }}"
     repo: https://github.com/spack/spack.git
     version: master
+  name: Cloning From Github

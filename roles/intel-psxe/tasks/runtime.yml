@@ -1,43 +1,36 @@
 - name: install Intel GPG key
   rpm_key:
     key: "{{ runtime_intel_gpg_key }}"
-
 - name: install Intel Runtime repos
   shell:
     cmd: "yum-config-manager --add-repo {{ runtime_intel_repo }}"
     creates: /etc/yum.repos.d/intelproducts.repo
-
-- name: accept repo gpg key
-  command:
+- command:
     cmd: yum makecache -y
     warn: false
-
+  name: accept repo gpg key
 - name: install Intel(R) Data Analytics Acceleration Library
+  when: runtime_daal_ver != ""
   yum:
     name:
       - "intel-daal-{{ runtime_daal_ver }}"
-  when: runtime_daal_ver != ""
-
 - name: install Intel(R) Integrated Performance Primitives
+  when: runtime_ipp_ver != ""
   yum:
     name:
       - "intel-ipp-{{ runtime_ipp_ver }}"
-  when: runtime_ipp_ver != ""
-
 - name: install Intel(R) MPI Library
+  when: runtime_mpi_ver != ""
   yum:
     name:
       - "intel-mpi-{{ runtime_mpi_ver }}"
-  when: runtime_mpi_ver != ""
-
 - name: install Intel(R) Math Kernel Library
+  when: runtime_mkl_ver != ""
   yum:
     name:
       - "intel-mkl-{{ runtime_mkl_ver }}"
-  when: runtime_mkl_ver != ""
-
 - name: install Intel(R) Threading Building Blocks
+  when: runtime_tbb_ver != ""
   yum:
     name:
       - "intel-tbb-{{ runtime_tbb_ver }}"
-  when: runtime_tbb_ver != ""

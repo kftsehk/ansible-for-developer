@@ -1,22 +1,19 @@
-- name: download psxe
-  get_url:
+- get_url:
     dest: "{{ psxe_temp_root }}/psxe.tgz"
     url: "{{ psxe_download_url }}"
-
+  name: download psxe
 - name: extract psxe
   unarchive:
-    src: "{{ psxe_temp_root }}/psxe.tgz"
     dest: "{{ psxe_temp_root }}"
     extra_opts:
       - --transform=s/^parallel_studio_xe_[^\/]*/psxe/
-
+    src: "{{ psxe_temp_root }}/psxe.tgz"
 - name: write silent.cfg
   template:
-    src: psxe-silent.cfg.j2
     dest: "{{ psxe_temp_root }}/psxe/silent.cfg"
-    owner: root
     group: root
-    mode: 0644
-
-- name: install psxe
-  command: "{{ psxe_temp_root }}/psxe/install.sh -s {{ psxe_temp_root }}/psxe/silent.cfg"
+    mode: 420
+    owner: root
+    src: psxe-silent.cfg.j2
+- command: "{{ psxe_temp_root }}/psxe/install.sh -s {{ psxe_temp_root }}/psxe/silent.cfg"
+  name: install psxe
