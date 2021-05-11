@@ -92,12 +92,17 @@
         psxe_activation_config: ACTIVATION_SERIAL_NUMBER=
     - role: google-chrome
   tasks:
-  - name: misc packages
-    yum:
-      name:
-        - GraphicsMagick
-        - htop
-        - snapd
-        - sox
-        - tmux
-      state: latest
+    - name: google chrome
+      yum:
+        name:
+          - https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+        disable_gpg_check: true
+        state: latest
+    - name: misc packages
+      yum:
+        name:
+          - curl
+          - nano
+          - vim
+          - wget
+        state: latest
