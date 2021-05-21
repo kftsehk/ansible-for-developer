@@ -1,0 +1,13 @@
+- name: Install torch apt prerequisites
+  apt:
+    name:
+      - libopenblas-base
+      - libopenmpi-dev
+- name: Download pytorch wheel
+  get_url:
+    url: https://nvidia.box.com/shared/static/p57jwntv436lfrd78inwl7iml6p13fzh.whl
+    dest: /root/torch-1.8.0-cp36-cp36m-linux_aarch64.whl
+- name: Install torch
+  pip:
+    executable: pip3
+    name: /root/torch-1.8.0-cp36-cp36m-linux_aarch64.whl

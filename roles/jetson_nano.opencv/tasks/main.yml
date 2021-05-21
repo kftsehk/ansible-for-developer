@@ -1,0 +1,6 @@
+- name: Install python
+  apt:
+    name:
+      - nvidia-opencv
+    update_cache: yes
+    state: latest

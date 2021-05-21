@@ -1,0 +1,18 @@
+- name: Install python
+  apt:
+    name:
+      - python3.8
+      - python3.8-dev
+      - python3.8-venv
+      - python3-pip
+    update_cache: yes
+    state: latest
+- name: Install pip prerequisites
+  pip:
+    executable: pip3
+    name:
+      - testresources
+      - setuptools
+      - Cython
+      - jetson-stats
+    state: latest

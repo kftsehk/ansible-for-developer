@@ -1,0 +1,21 @@
+# https://forums.developer.nvidia.com/t/official-tensorflow-for-jetson-nano/71770
+- name: Install tensorflow apt prerequisites
+  apt:
+    name:
+      - libhdf5-serial-dev
+      - hdf5-tools
+      - libhdf5-dev
+      - zlib1g-dev
+      - zip
+      - libjpeg8-dev
+      - liblapack-dev
+      - libblas-dev
+      - gfortran
+- name: Download tensorflow wheel
+  get_url:
+    url: https://developer.download.nvidia.com/compute/redist/jp/v45/tensorflow/tensorflow-2.4.0+nv21.5-cp36-cp36m-linux_aarch64.whl
+    dest: /root/tensorflow-2.4.0+nv21.5-cp36-cp36m-linux_aarch64.whl
+- name: Install tensorflow
+  pip:
+    executable: pip3
+    name: /root/tensorflow-2.4.0+nv21.5-cp36-cp36m-linux_aarch64.whl
