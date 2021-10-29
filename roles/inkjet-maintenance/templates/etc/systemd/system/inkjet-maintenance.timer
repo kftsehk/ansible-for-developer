@@ -1,0 +1,8 @@
+[Unit]
+Description=Print something every few days
+
+[Timer]
+OnUnitActiveSec=3d
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,20 @@
+- name: setup printer maintenance service
+  template:
+    src: etc/systemd/system/inkjet-maintenance.service
+    dest: /etc/systemd/system/inkjet-maintenance-{{ printer_name }}.service
+- name: setup printer maintenance timer
+  template:
+    src: etc/systemd/system/inkjet-maintenance.timer
+    dest: /etc/systemd/system/inkjet-maintenance-{{ printer_name }}.timer
+- name: inkjet-maintenance-{{ printer_name }}.timer
+  systemd:
+    daemon_reload: true
+    name: inkjet-maintenance-{{ printer_name }}.timer
+    enabled: true
+    state: started
+- name: test inkjet-maintenance-{{ printer_name }}.service
+  systemd:
+    daemon_reload: true
+    name: inkjet-maintenance-{{ printer_name }}.service
+    state: started
+  when: test_page_now

@@ -1,0 +1,3 @@
+printer_name:
+test_page: /usr/share/cups/data/default-testpage.pdf
+test_page_now: false

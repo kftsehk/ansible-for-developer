@@ -6,7 +6,7 @@
   roles:
     - role: base
       vars:
-        elrepo: https://www.elrepo.org/elrepo-release-7.el7.elrepo.noarch.rpm
+        elrepo: https://www.elrepo.org/elrepo-release-8.el8.elrepo.noarch.rpm
         yum_baseline_upgrade: true
         yum_kernel_upgrade: true
     - role: google-chrome
@@ -15,7 +15,7 @@
         git_install_from_source: true
         git_install_from_source_force_update: true
         git_install_path: "/usr/local"
-        git_version: "2.25.1"
+        git_version: "2.33.1"
     - role: ngetchell.vscode
       vars:
         vscode_extension:
@@ -75,12 +75,8 @@
         security_ssh_restart_handler_state: restarted
         security_ssh_usedns: "no"
         security_ssh_x11_forwarding: "yes"
-  tasks:
-    - name: misc packages
-      yum:
-        name:
-          - curl
-          - nano
-          - vim
-          - wget
-        state: latest
+    - role: inkjet-maintenance
+      vars:
+        printer_name: epson-l4160
+        test_page: /usr/share/cups/data/testprint
+        test_page_now: true

@@ -1,0 +1,10 @@
+[Unit]
+Description=Print something every few days
+Wants=printer-maintenance-{{ printer_name }}.timer
+
+[Service]
+Type=oneshot
+ExecStart=lpr -P {{ printer_name }} /usr/share/cups/data/default-testpage.pdf 
+
+[Install]
+WantedBy=multi-user.target
